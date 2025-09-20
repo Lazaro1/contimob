@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planejamento para 2 Devs - Plataforma Contabilidade</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7f9;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin: 25px 0 15px;
+        }
+        
+        h3 {
+            color: #3498db;
+            margin: 20px 0 10px;
+        }
+        
+        .project-info {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 20px 0;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .info-item {
+            text-align: center;
+            padding: 10px;
+            min-width: 200px;
+        }
+        
+        .info-item h4 {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+        
+        .info-item p {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .dev-calculation {
+            background: #e8f4fc;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .phase {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .phase-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .hours-badge {
+            background: #e74c3c;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        tr:hover {
+            background-color: #f5f7f9;
+        }
+        
+        .task-id {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .task-hours {
+            text-align: center;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        
+        .week-schedule {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .week-card {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .week-card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .week-tasks {
+            list-style-type: none;
+        }
+        
+        .week-tasks li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .week-hours {
+            font-weight: bold;
+            color: #3498db;
+            margin-top: 10px;
+            text-align: center;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .project-info {
+                flex-direction: column;
+            }
+            
+            .week-schedule {
+                flex-direction: column;
+            }
+            
+            th, td {
+                padding: 8px 10px;
+            }
+        }
+        
+        .print-btn {
+            background: #2c3e50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin: 20px 0;
+            display: block;
+            margin-left: auto;
+        }
+        
+        .print-btn:hover {
+            background: #3498db;
+        }
+        
+        .note {
+            background: #fff8e1;
+            padding: 15px;
+            border-left: 4px solid #ffc107;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Planejamento para 2 Desenvolvedores</h1>
+        <p>Plataforma de Contabilidade Imobiliária</p>
+    </header>
+
+    <div class="project-info">
+        <div class="info-item">
+            <h4>Data de Início</h4>
+            <p>01/10/2025</p>
+        </div>
+        <div class="info-item">
+            <h4>Data de Entrega</h4>
+            <p>05/01/2026</p>
+        </div>
+        <div class="info-item">
+            <h4>Duração Total</h4>
+            <p>14 semanas</p>
+        </div>
+        <div class="info-item">
+            <h4>Total de Horas</h4>
+            <p>420 horas</p>
+        </div>
+    </div>
+
+    <div class="dev-calculation">
+        <h3>Cálculo de Capacidade de Produção</h3>
+        <p>2 desenvolvedores × 3 horas/dia × 5 dias/semana = 30 horas/semana</p>
+        <p>14 semanas × 30 horas/semana = <strong>420 horas disponíveis</strong></p>
+        <p>Horas originais: 640h → Horas ajustadas: 420h (<strong>redução de 34%</strong>)</p>
+    </div>
+
+    <button class="print-btn" onclick="window.print()">Imprimir ou Salvar como PDF</button>
+
+    <div class="note">
+        <strong>Nota importante:</strong> Com apenas 2 desenvolvedores trabalhando 3 horas/dia cada, foi necessário priorizar as funcionalidades essenciais para o MVP (Minimum Viable Product). Algumas funcionalidades foram simplificadas ou removidas para caber no novo orçamento de horas.
+    </div>
+
+    <h2>Tarefas Ajustadas por Fase</h2>
+
+    <div class="phase">
+        <div class="phase-header">
+            <h3>FASE 1: Banco de Dados & Backend</h3>
+            <span class="hours-badge">105 horas | 3.5 semanas</span>
+        </div>
+        
+        <h4>📊 Modelagem de Dados (25 horas)</h4>
+        <table>
+            <tr>
+                <th>Tarefa</th>
+                <th>Descrição</th>
+                <th>Horas</th>
+            </tr>
+            <tr>
+                <td class="task-id">DB-001</td>
+                <td>Modelagem entidade-relacionamento</td>
+                <td class="task-hours">6h</td>
+            </tr>
+            <tr>
+                <td class="task-id">DB-002</td>
+                <td>Criação script SQL de tabelas</td>
+                <td class="task-hours">8h</td>
+            </tr>
+            <tr>
+                <td class="task-id">DB-003</td>
+                <td>Definição de constraints e índices</td>
+                <td class="task-hours">5h</td>
+            </tr>
+            <tr>
+                <td class="task-id">DB-004</td>
+                <td>População com dados de teste</td>
+                <td class="task-hours">4h</td>
+            </tr>
+            <tr>
+                <td class="task-id">DB-005</td>
+                <td>Documentação do modelo de dados</td>
+                <td class="task-hours">2h</td>
+            </tr>
+        </table>
+
+        <h4>⚙️ Desenvolvimento Backend (80 horas)</h4>
+        <table>
+            <tr>
+                <th>Tarefa</th>
+                <th>Descrição</th>
+                <th>Horas</th>
+            </tr>
+            <tr>
+                <td class="task-id">BE-001</td>
+                <td>Configuração ambiente Node.js</td>
+                <td class="task-hours">3h</td>
+            </tr>
+            <tr>
+                <td class="task-id">BE-002</td>
+                <td>Estrutura base da API Express</td>
+                <td class="task-hours">6h</td>
+            </tr>
+            <tr>
+                <td class="task-id">BE-003</td>
+                <td>Sistema de autenticação JWT</td>
+                <td class="task-hours">10h</td>
+            </tr>
+            <tr>
+                <td class="task-id">BE-004</td>
+                <td>Conexão com PostgreSQL</td>
+                <td class="task-hours">5h</td>
+            </tr>
+            <tr>
+                <td class="task-id">BE-005</td>
+                <td>CRUD Usuários</td>
+                <td class="task-hours">12h</td>
+            </tr>
+            <tr>
+                <td class="task-id">BE-006</td>
+                <td>CRUD Conteúdos</td>
+                <td class="task-hours">15h</td>
+            </tr>
+            <tr>
+                <td class="task-id">BE-007</td>
+                <td>CRUD Menus/Submenus</td>
+                <td class="task-hours">12h</td>
+            </tr>
+            <tr>
+                <td class="task-id">BE-008</td>
+                <td>Middleware de autorização</td>
+                <td class="task-hours">8h</td>
+            </tr>
+            <tr>
+                <td class="task-id">BE-009</td>
+                <td>Validações de dados</td>
+                <td class="task-hours">6h</td>
+            </tr>
+            <tr>
+                <td class="task-id">BE-010</td>
+                <td>Documentação API (Swagger)</td>
+                <td class="task-hours">3h</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="phase">
+        <div class="phase-header">
+            <h3>FASE 2: Sistema CMS & Frontend</h3>
+            <span class="hours-badge">135 horas | 4.5 semanas</span>
+        </div>
+        
+        <h4>🎨 Frontend da Plataforma (70 horas)</h4>
+        <table>
+            <tr>
+                <th>Tarefa</th>
+                <th>Descrição</th>
+                <th>Horas</th>
+            </tr>
+            <tr>
+                <td class="task-id">FE-001</td>
+                <td>Setup React.js e dependências</td>
+                <td class="task-hours">5h</td>
+            </tr>
+            <tr>
+                <td class="task-id">FE-002</td>
+                <td>Componente Header/Navegação</td>
+                <td class="task-hours">8h</td>
+            </tr>
+            <tr>
+                <td class="task-id">FE-003</td>
+                <td>Página de listagem de conteúdos</td>
+                <td class="task-hours">12h</td>
+            </tr>
+            <tr>
+                <td class="task-id">FE-004</td>
+                <td>Página de conteúdo individual</td>
+                <td class="task-hours">8h</td>
+            </tr>
+            <tr>
+                <td class="task-id">FE-005</td>
+                <td>Sistema de login/registro</td>
+                <td class="task-hours">12h</td>
+            </tr>
+            <tr>
+                <td class="task-id">FE-006</td>
+                <td>Página de perfil do usuário</td>
+                <td class="task-hours">8h</td>
+            </tr>
+            <tr>
+                <td class="task-id">FE-007</td>
+                <td>Design responsivo</td>
+                <td class="task-hours">12h</td>
+            </tr>
+            <tr>
+                <td class="task-id">FE-008</td>
+                <td>Integração com API backend</td>
+                <td class="task-hours">5h</td>
+            </tr>
+        </table>
+
+        <h4>🎛️ Painel Administrativo CMS (65 horas)</h4>
+        <table>
+            <tr>
+                <th>Tarefa</th>
+                <th>Descrição</th>
+                <th>Horas</th>
+            </tr>
+            <tr>
+                <td class="task-id">CMS-001</td>
+                <td>Estrutura painel admin</td>
+                <td class="task-hours">8h</td>
+            </tr>
+            <tr>
+                <td class="task-id">CMS-002</td>
+                <td>Gestão de usuários</td>
+                <td class="task-hours">10h</td>
+            </tr>
+            <tr>
+                <td class="task-id">CMS-003</td>
+                <td>Editor de conteúdos</td>
+                <td class="task-hours">15h</td>
+            </tr>
+            <tr>
+                <td class="task-id">CMS-004</td>
+                <td>Gerenciador de menus</td>
+                <td class="task-hours">12h</td>
+            </tr>
+            <tr>
+                <td class="task-id">CMS-005</td>
+                <td>Dashboard com estatísticas</td>
+                <td class="task-hours">8h</td>
+            </tr>
+            <tr>
+                <td class="task-id">CMS-006</td>
+                <td>Controle de permissões</td>
+                <td class="task-hours">8h</td>
+            </tr>
+            <tr>
+                <td class="task-id">CMS-007</td>
+                <td>Integração com API</td>
+                <td class="task-hours">4h</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="phase">
+        <div class="phase-header">
+            <h3>FASE 3: Funcionalidades Premium</h3>
+            <span class="hours-badge">105 horas | 3.5 semanas</span>
+        </div>
+        
+        <h4>💰 Sistema de Pagamentos (55 horas)</h4>
+        <table>
+            <tr>
+                <th>Tarefa</th>
+                <th>Descrição</th>
+                <th>Horas</th>
+            </tr>
+            <tr>
+                <td class="task-id">PAY-001</td>
+                <td>Integração gateway de pagamento (simplificada)</td>
+                <td class="task-hours">12h</td>
+            </tr>
+            <tr>
+                <td class="task-id">PAY-002</td>
+                <td>Sistema de assinaturas (versão básica)</td>
+                <td class="task-hours">15h</td>
+            </tr>
+            <tr>
+                <td class="task-id">PAY-003</td>
+                <td>Webhooks para confirmações</td>
+                <td class="task-hours">8h</td>
+            </tr>
+            <tr>
+                <td class="task-id">PAY-004</td>
+                <td>Painel de gestão de assinaturas</td>
+                <td class="task-hours">12h</td>
+            </tr>
+            <tr>
+                <td class="task-id">PAY-005</td>
+                <td>Emails transacionais (básico)</td>
+                <td class="task-hours">8h</td>
+            </tr>
+        </table>
+
+        <h4>🔍 Sistema de Busca (35 horas)</h4>
+        <table>
+            <tr>
+                <th>Tarefa</th>
+                <th>Descrição</th>
+                <th>Horas</th>
+            </tr>
+            <tr>
+                <td class="task-id">SRCH-001</td>
+                <td>Busca simplificada com PostgreSQL</td>
+                <td class="task-hours">10h</td>
+            </tr>
+            <tr>
+                <td class="task-id">SRCH-002</td>
+                <td>Indexação de conteúdos</td>
+                <td class="task-hours">8h</td>
+            </tr>
+            <tr>
+                <td class="task-id">SRCH-003</td>
+                <td>Interface de busca frontend</td>
+                <td class="task-hours">10h</td>
+            </tr>
+            <tr>
+                <td class="task-id">SRCH-004</td>
+                <td>Filtros básicos</td>
+                <td class="task-hours">7h</td>
+            </tr>
+        </table>
+
+        <h4>⭐ Área Premium (15 horas)</h4>
+        <table>
+            <tr>
+                <th>Tarefa</th>
+                <th>Descrição</th>
+                <th>Horas</th>
+            </tr>
+            <tr>
+                <td class="task-id">PREM-001</td>
+                <td>Bloqueio/liberação de conteúdo</td>
+                <td class="task-hours">6h</td>
+            </tr>
+            <tr>
+                <td class="task-id">PREM-002</td>
+                <td>Diferenciação visual free/premium</td>
+                <td class="task-hours">5h</td>
+            </tr>
+            <tr>
+                <td class="task-id">PREM-003</td>
+                <td>Página de upgrade</td>
+                <td class="task-hours">4h</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="phase">
+        <div class="phase-header">
+            <h3>FASE 4: Infraestrutura & Deploy</h3>
+            <span class="hours-badge">50 horas | 1.5 semanas</span>
+        </div>
+        
+        <h4>☁️ Configuração de Infraestrutura (30 horas)</h4>
+        <table>
+            <tr>
+                <th>Tarefa</th>
+                <th>Descrição</th>
+                <th>Horas</th>
+            </tr>
+            <tr>
+                <td class="task-id">INF-001</td>
+                <td>Setup servidor cloud</td>
+                <td class="task-hours">5h</td>
+            </tr>
+            <tr>
+                <td class="task-id">INF-002</td>
+                <td>Configuração PostgreSQL em produção</td>
+                <td class="task-hours">5h</td>
+            </tr>
+            <tr>
+                <td class="task-id">INF-003</td>
+                <td>Configuração domínio e SSL</td>
+                <td class="task-hours">3h</td>
+            </tr>
+            <tr>
+                <td class="task-id">INF-004</td>
+                <td>Ambiente de staging</td>
+                <td class="task-hours">5h</td>
+            </tr>
+            <tr>
+                <td class="task-id">INF-005</td>
+                <td>Scripts de deploy automatizado</td>
+                <td class="task-hours">8h</td>
+            </tr>
+            <tr>
+                <td class="task-id">INF-006</td>
+                <td>Configuração de backups</td>
+                <td class="task-hours">3h</td>
+            </tr>
+            <tr>
+                <td class="task-id">INF-007</td>
+                <td>Monitoramento básico</td>
+                <td class="task-hours">1h</td>
+            </tr>
+        </table>
+
+        <h4>🚀 Deploy e Migração (20 horas)</h4>
+        <table>
+            <tr>
+                <th>Tarefa</th>
+                <th>Descrição</th>
+                <th>Horas</th>
+            </tr>
+            <tr>
+                <td class="task-id">DEP-001</td>
+                <td>Migração banco de dados</td>
+                <td class="task-hours">5h</td>
+            </tr>
+            <tr>
+                <td class="task-id">DEP-002</td>
+                <td>Deploy aplicação backend</td>
+                <td class="task-hours">4h</td>
+            </tr>
+            <tr>
+                <td class="task-id">DEP-003</td>
+                <td>Deploy aplicação frontend</td>
+                <td class="task-hours">4h</td>
+            </tr>
+            <tr>
+                <td class="task-id">DEP-004</td>
+                <td>Testes básicos de carga</td>
+                <td class="task-hours">4h</td>
+            </tr>
+            <tr>
+                <td class="task-id">DEP-005</td>
+                <td>Documentação de deploy</td>
+                <td class="task-hours">3h</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="phase">
+        <div class="phase-header">
+            <h3>FASE 5: Testes & Ajustes Finais</h3>
+            <span class="hours-badge">25 horas | 0.8 semanas</span>
+        </div>
+        
+        <h4>🧪 Testes e Qualidade (15 horas)</h4>
+        <table>
+            <tr>
+                <th>Tarefa</th>
+                <th>Descrição</th>
+                <th>Horas</th>
+            </tr>
+            <tr>
+                <td class="task-id">QA-001</td>
+                <td>Testes de usabilidade</td>
+                <td class="task-hours">5h</td>
+            </tr>
+            <tr>
+                <td class="task-id">QA-002</td>
+                <td>Testes de performance</td>
+                <td class="task-hours">4h</td>
+            </tr>
+            <tr>
+                <td class="task-id">QA-003</td>
+                <td>Testes de segurança básicos</td>
+                <td class="task-hours">3h</td>
+            </tr>
+            <tr>
+                <td class="task-id">QA-004</td>
+                <td>Correção de bugs críticos</td>
+                <td class="task-hours">3h</td>
+            </tr>
+        </table>
+
+        <h4>📚 Documentação e Treinamento (10 horas)</h4>
+        <table>
+            <tr>
+                <th>Tarefa</th>
+                <th>Descrição</th>
+                <th>Horas</th>
+            </tr>
+            <tr>
+                <td class="task-id">DOC-001</td>
+                <td>Manual do usuário CMS</td>
+                <td class="task-hours">4h</td>
+            </tr>
+            <tr>
+                <td class="task-id">DOC-002</td>
+                <td>Documentação técnica essencial</td>
+                <td class="task-hours">3h</td>
+            </tr>
+            <tr>
+                <td class="task-id">DOC-003</td>
+                <td>Sessão de treinamento</td>
+                <td class="task-hours">3h</td>
+            </tr>
+        </table>
+    </div>
+
+    <h2>Distribuição Semanal de Tarefas</h2>
+    
+    <div class="week-schedule">
+        <div class="week-card">
+            <h3>Semana 1-2</h3>
+            <ul class="week-tasks">
+                <li>Modelagem de dados</li>
+                <li>Configuração ambiente</li>
+                <li>Estrutura base da API</li>
+                <li>Autenticação JWT</li>
+            </ul>
+            <div class="week-hours">30 horas</div>
+        </div>
+        
+        <div class="week-card">
+            <h3>Semana 3-4</h3>
+            <ul class="week-tasks">
+                <li>CRUD Usuários</li>
+                <li>CRUD Conteúdos</li>
+                <li>Setup React.js</li>
+                <li>Componentes base</li>
+            </ul>
+            <div class="week-hours">30 horas</div>
+        </div>
+        
+        <div class="week-card">
+            <h3>Semana 5-6</h3>
+            <ul class="week-tasks">
+                <li>Páginas de conteúdo</li>
+                <li>Sistema login/registro</li>
+                <li>Painel administrativo</li>
+                <li>Editor de conteúdos</li>
+            </ul>
+            <div class="week-hours">30 horas</div>
+        </div>
+    </div>
+    
+    <div class="week-schedule">
+        <div class="week-card">
+            <h3>Semana 7-8</h3>
+            <ul class="week-tasks">
+                <li>Gerenciador de menus</li>
+                <li>Dashboard admin</li>
+                <li>Controle de permissões</li>
+                <li>Design responsivo</li>
+            </ul>
+            <div class="week-hours">30 horas</div>
+        </div>
+        
+        <div class="week-card">
+            <h3>Semana 9-10</h3>
+            <ul class="week-tasks">
+                <li>Sistema de pagamentos</li>
+                <li>Assinaturas</li>
+                <li>Sistema de busca</li>
+                <li>Área premium</li>
+            </ul>
+            <div class="week-hours">30 horas</div>
+        </div>
+        
+        <div class="week-card">
+            <h3>Semana 11-12</h3>
+            <ul class="week-tasks">
+                <li>Configuração infraestrutura</li>
+                <li>Deploy em staging</li>
+                <li>Testes iniciais</li>
+                <li>Ajustes</li>
+            </ul>
+            <div class="week-hours">30 horas</div>
+        </div>
+    </div>
+    
+    <div class="week-schedule">
+        <div class="week-card">
+            <h3>Semana 13</h3>
+            <ul class="week-tasks">
+                <li>Deploy em produção</li>
+                <li>Testes finais</li>
+                <li>Correção de bugs</li>
+                <li>Documentação</li>
+            </ul>
+            <div class="week-hours">30 horas</div>
+        </div>
+        
+        <div class="week-card">
+            <h3>Semana 14</h3>
+            <ul class="week-tasks">
+                <li>Testes de aceitação</li>
+                <li>Ajustes finais</li>
+                <li>Treinamento</li>
+                <li>Entrega</li>
+            </ul>
+            <div class="week-hours">30 horas</div>
+        </div>
+    </div>
+
+    <div class="note">
+        <strong>Estratégia de desenvolvimento:</strong> Com a redução de horas, focaremos em construir um MVP (Minimum Viable Product) funcional que atenda às necessidades básicas. As funcionalidades secundárias podem ser implementadas em uma segunda fase após a entrega inicial.
+    </div>
+
+    <footer>
+        <p>Documento gerado em: 18/09/2025</p>
+        <p>Plataforma de Contabilidade Imobiliária | © 2025</p>
+    </footer>
+
+    <script>
+        // Adiciona a data atual automaticamente
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date();
+            const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+            const dateString = today.toLocaleDateString('pt-BR', options);
+            const dateElement = document.querySelector('footer p:first-child');
+            
+            if (dateElement) {
+                dateElement.textContent = 'Documento gerado em: ' + dateString;
+            }
+        });
+    </script>
+</body>
+</html>
