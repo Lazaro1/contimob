@@ -113,6 +113,98 @@
           box-shadow: none;
         }
       }
+
+      /* Adicionando responsividade para dispositivos móveis */
+      @media (max-width: 768px) {
+        body {
+          padding: 10px;
+        }
+
+        .header {
+          padding: 15px;
+        }
+
+        .content {
+          padding: 20px;
+        }
+
+        h1 {
+          font-size: 1.8em;
+        }
+
+        h2 {
+          font-size: 1.4em;
+        }
+
+        h3 {
+          font-size: 1.2em;
+        }
+
+        /* Tornando as tabelas responsivas */
+        table {
+          font-size: 0.9em;
+        }
+
+        th, td {
+          padding: 8px 6px;
+          word-wrap: break-word;
+        }
+
+        /* Para tabelas muito largas, permitir scroll horizontal */
+        .table-container {
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+
+        /* Ajustes específicos para a seção de infraestrutura */
+        .infra-cost {
+          padding: 15px;
+        }
+
+        .infra-cost table {
+          min-width: 100%;
+        }
+
+        /* Em telas muito pequenas, empilhar células da tabela */
+        @media (max-width: 480px) {
+          table, thead, tbody, th, td, tr {
+            display: block;
+          }
+
+          thead tr {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+          }
+
+          tr {
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            background: #f9f9f9;
+          }
+
+          td {
+            border: none;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            padding-left: 10px !important;
+            text-align: left;
+          }
+
+          td:before {
+            content: attr(data-label);
+            position: absolute;
+            left: 6px;
+            width: 45%;
+            padding-right: 10px;
+            white-space: nowrap;
+            font-weight: bold;
+            color: #2c3e50;
+          }
+        }
+      }
     </style>
   </head>
 
@@ -289,39 +381,39 @@
             <th>Observações</th>
           </tr>
           <tr>
-            <td>Servidor Cloud (VPS)</td>
-            <td>R$ 150,00 - R$ 250,00</td>
-            <td>2GB RAM, 2 vCPU, 40GB SSD</td>
+            <td data-label="Item">Servidor Cloud (VPS)</td>
+            <td data-label="Custo Mensal Estimado">R$ 150,00 - R$ 250,00</td>
+            <td data-label="Observações">2GB RAM, 2 vCPU, 40GB SSD</td>
           </tr>
           <tr>
-            <td>Banco de Dados</td>
-            <td>R$ 50,00 - R$ 100,00</td>
-            <td>PostgreSQL/MySQL gerenciado</td>
+            <td data-label="Item">Banco de Dados</td>
+            <td data-label="Custo Mensal Estimado">R$ 50,00 - R$ 100,00</td>
+            <td data-label="Observações">PostgreSQL/MySQL gerenciado</td>
           </tr>
           <tr>
-            <td>Domínio (.com.br)</td>
-            <td>R$ 40,00/ano</td>
-            <td>Custo anual - aproximadamente R$ 3,33/mês</td>
+            <td data-label="Item">Domínio (.com.br)</td>
+            <td data-label="Custo Mensal Estimado">R$ 40,00/ano</td>
+            <td data-label="Observações">Custo anual - aproximadamente R$ 3,33/mês</td>
           </tr>
           <tr>
-            <td>Certificado SSL</td>
-            <td>R$ 0,00</td>
-            <td>Let's Encrypt (gratuito)</td>
+            <td data-label="Item">Certificado SSL</td>
+            <td data-label="Custo Mensal Estimado">R$ 0,00</td>
+            <td data-label="Observações">Let's Encrypt (gratuito)</td>
           </tr>
           <tr>
-            <td>Backup em Cloud</td>
-            <td>R$ 20,00 - R$ 50,00</td>
-            <td>Backups automáticos diários</td>
+            <td data-label="Item">Backup em Cloud</td>
+            <td data-label="Custo Mensal Estimado">R$ 20,00 - R$ 50,00</td>
+            <td data-label="Observações">Backups automáticos diários</td>
           </tr>
           <tr>
-            <td>Monitoramento</td>
-            <td>R$ 0,00 - R$ 30,00</td>
-            <td>Opções gratuitas e pagas</td>
+            <td data-label="Item">Monitoramento</td>
+            <td data-label="Custo Mensal Estimado">R$ 0,00 - R$ 30,00</td>
+            <td data-label="Observações">Opções gratuitas e pagas</td>
           </tr>
           <tr>
-            <th>TOTAL MENSAL ESTIMADO</th>
-            <th>R$ 220,00 - R$ 430,00</th>
-            <th>Varia conforme provedor e necessidades</th>
+            <th data-label="Item">TOTAL MENSAL ESTIMADO</th>
+            <th data-label="Custo Mensal Estimado">R$ 220,00 - R$ 430,00</th>
+            <th data-label="Observações">Varia conforme provedor e necessidades</th>
           </tr>
         </table>
 
@@ -403,3 +495,19 @@
     </script>
   </body>
 </html>
+
+@media (max-width: 600px) {
+  .infra-cost table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 0;
+  }
+  .infra-cost table th,
+  .infra-cost table td {
+    min-width: 120px;
+    padding: 8px 10px;
+    font-size: 0.95em;
+  }
+}
