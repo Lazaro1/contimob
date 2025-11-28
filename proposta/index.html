@@ -93,7 +93,7 @@
         /* Cards for Profiles */
         .grid-container {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 20px;
         }
 
@@ -152,6 +152,26 @@
             color: #95a5a6;
             border-top: 1px solid #eee;
             padding-top: 20px;
+        }
+
+        /* Responsive Tweaks for sections 2 and 6 */
+        @media (max-width: 900px) {
+            .container {
+                padding: 25px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            .card {
+                padding: 12px;
+            }
+            .card h3 {
+                font-size: 15px;
+            }
         }
 
         /* Print Specific Styles */
