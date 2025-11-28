@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Orçamento - Site Institucional para Fintech</title>
+    <style>
+      :root {
+        --primary: #1a237e;
+        --primary-light: #534bae;
+        --primary-dark: #000051;
+        --secondary: #00bcd4;
+        --text: #333333;
+        --text-light: #666666;
+        --background: #f8f9fa;
+        --white: #ffffff;
+        --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        --border-radius: 8px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background-color: var(--background);
+        color: var(--text);
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      header {
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-light)
+        );
+        color: white;
+        padding: 40px 0;
+        text-align: center;
+        border-bottom-left-radius: 30px;
+        border-bottom-right-radius: 30px;
+        box-shadow: var(--shadow);
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+      }
+
+      .subtitle {
+        font-size: 1.2rem;
+        opacity: 0.9;
+      }
+
+      section {
+        background-color: var(--white);
+        margin: 30px 0;
+        padding: 30px;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+      }
+
+      h2 {
+        color: var(--primary);
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid var(--secondary);
+      }
+
+      h3 {
+        color: var(--primary-light);
+        margin: 20px 0 10px;
+      }
+
+      ul {
+        list-style-type: none;
+        padding-left: 20px;
+      }
+
+      li {
+        margin-bottom: 10px;
+        position: relative;
+      }
+
+      li:before {
+        content: "•";
+        color: var(--secondary);
+        font-weight: bold;
+        display: inline-block;
+        width: 1em;
+        margin-left: -1em;
+      }
+
+      .tech-card {
+        background: var(--white);
+        border: 1px solid #e0e0e0;
+        border-radius: var(--border-radius);
+        padding: 20px;
+        transition: transform 0.3s, box-shadow 0.3s;
+        max-width: 600px;
+        margin: 20px auto;
+      }
+
+      .tech-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow);
+      }
+
+      .tech-card h3 {
+        color: var(--primary);
+        margin-top: 0;
+      }
+
+      .price {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--primary);
+        margin: 15px 0;
+      }
+
+      .timeline {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+      }
+
+      .timeline-item {
+        text-align: center;
+        padding: 15px;
+      }
+
+      .timeline-days {
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: var(--primary);
+      }
+
+      .payment-steps {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+      }
+
+      .payment-step {
+        text-align: center;
+        flex: 1;
+        padding: 15px;
+        background: #f5f5f5;
+        border-radius: var(--border-radius);
+      }
+
+      .payment-step:not(:last-child) {
+        margin-right: 10px;
+      }
+
+      .percentage {
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: var(--primary);
+      }
+
+      .highlight {
+        background-color: rgba(0, 188, 212, 0.1);
+        padding: 15px;
+        border-left: 4px solid var(--secondary);
+        margin: 20px 0;
+        border-radius: 0 var(--border-radius) var(--border-radius) 0;
+      }
+
+      .note-box {
+        background-color: #fff8e1;
+        border-left: 4px solid #ffc107;
+        padding: 15px;
+        margin: 20px 0;
+        border-radius: 0 var(--border-radius) var(--border-radius) 0;
+      }
+
+      footer {
+        text-align: center;
+        padding: 30px 0;
+        margin-top: 40px;
+        color: var(--text-light);
+        border-top: 1px solid #e0e0e0;
+      }
+
+      @media (max-width: 768px) {
+        .timeline,
+        .payment-steps {
+          flex-direction: column;
+        }
+
+        .payment-step:not(:last-child) {
+          margin-right: 0;
+          margin-bottom: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <h1>Orçamento - Site Institucional para Fintech</h1>
+        <p class="subtitle">
+          Proposta comercial para desenvolvimento de site moderno e responsivo
+        </p>
+      </div>
+    </header>
+
+    <div class="container">
+      <section>
+        <h2>Escopo do Projeto</h2>
+        <p>
+          Este orçamento contempla o desenvolvimento de um site institucional
+          responsivo de 4 páginas , incluindo integrações de contato e
+          otimização básica, conforme detalhado abaixo.
+        </p>
+      </section>
+
+      <section>
+        <h2>1. Estrutura de Páginas</h2>
+        <ul>
+          <li>
+            <strong>Home</strong> – apresentação da fintech, destaque dos
+            diferenciais e chamada para ação.
+          </li>
+          <li>
+            <strong>Sobre a empresa</strong> – missão, visão, valores, histórico
+            e equipe.
+          </li>
+          <li>
+            <strong>Serviços / Produtos</strong> – descrição clara dos serviços
+            financeiros oferecidos.
+          </li>
+          <li>
+            <strong>Contato</strong> – formulário integrado ao e-mail
+            corporativo + link direto para WhatsApp.
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>2. Funcionalidades</h2>
+        <ul>
+          <li>
+            Layout moderno, único e 100% responsivo (para desktop, tablet e
+            mobile).
+          </li>
+          <li>
+            Integração de formulário de contato com envio para e-mail
+            corporativo.
+          </li>
+          <li>Certificado SSL para navegação segura (https).</li>
+          <li>Otimização de performance e velocidade.</li>
+        </ul>
+
+        <div class="note-box">
+          <p>
+            <strong>Observação sobre formulário:</strong> Integração com serviço
+            de terceiros (ex: FormSubmit, Formspree). Soluções corporativas mais
+            complexas (como Microsoft Exchange) podem ter custo adicional.
+          </p>
+        </div>
+      </section>
+
+      <section>
+        <h2>3. Tecnologia & Investimento</h2>
+
+        <div class="tech-card">
+          <h3>Site Personalizado com HTML, CSS e JS</h3>
+          <ul>
+            <li>Desempenho superior e carregamento rápido</li>
+            <li>Baixo custo de manutenção</li>
+            <li>Visual profissional e responsivo</li>
+            <li>Ideal para quem busca simplicidade e eficiência</li>
+          </ul>
+          <div class="price">
+            <strong>Investimento:</strong> <span>R$ 2.000</span>
+          </div>
+        </div>
+
+        <div class="note-box">
+          <p>
+            <strong>Manutenção pós-entrega:</strong> Após a entrega, é
+            recomendado um contrato de manutenção para atualizações de
+            segurança, conteúdo e backups.<br />
+            <strong>Valor:</strong> a partir de R$ 150/mês
+            <em>(opcional, recomendado)</em>
+          </p>
+        </div>
+      </section>
+
+      <section>
+        <h2>4. Prazo de Entrega</h2>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-days">4-5</div>
+            <p>semanas para</p>
+            <p><strong>HTML + CSS + JS</strong></p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>5. Condições de Pagamento</h2>
+        <div class="payment-steps">
+          <div class="payment-step">
+            <div class="percentage">50%</div>
+            <p>no aceite da proposta e início do projeto</p>
+          </div>
+          <div class="payment-step">
+            <div class="percentage">50%</div>
+            <p>na entrega do site em ambiente de testes e aprovação final</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Observações Finais</h2>
+        <ul>
+          <li>
+            Os valores apresentados podem variar conforme o nível de
+            personalização do design ou inclusão de funcionalidades extras não
+            previstas neste escopo.
+          </li>
+          <li>Esta proposta é válida por 30 dias a partir da data de envio.</li>
+        </ul>
+        <p>
+          Estamos à disposição para esclarecer dúvidas e ajustar a proposta
+          conforme suas necessidades!
+        </p>
+      </section>
+
+      <section>
+        <h2>Próximos Passos</h2>
+        <p>
+          Para dar início ao projeto ou esclarecer dúvidas, entre em contato:
+        </p>
+        <ul>
+          <li><strong>E-mail:</strong> lazarolimasilva2@gmail.com</li>
+          <li><strong>Telefone/WhatsApp:</strong> (38) 99129-2333</li>
+        </ul>
+      </section>
+    </div>
+
+    <footer>
+      <div class="container">
+        <p>Proposta válida por 30 dias</p>
+      </div>
+    </footer>
+  </body>
+</html>
